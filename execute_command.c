@@ -1,50 +1,39 @@
 #include "header_shell.h"
 
 /**
- * execute_command - executes a command
- * @command: the command to execute
- * Return: 0 on success, or -1 on failure
+ * execute_command - executes a command in a child process
+ * @argv: the array of arguments to execute
  */
-int execute_command(char *command)
+void execute_command(char **argv)
 {
-	char *args[MAX_COMMAND_LENGTH];
-	char *token;
-	int i = 0;
-	char *cmd;
+	pid_t pid;
+	int status;
 
-	token = strtok(command, " ");
-
-	while (token != NULL)
+	pid = fork();
+	if (pid == -1)
 	{
-		args[i] = token;
-		token = strtok(NULL, " ");
-		i++;
+		perror("fork");
+		exit(EXIT_FAILURE);
 	}
-	args[i] = NULL;
-
-	if (_strncmp(args[0], "exit", 4) == 0)
-		exit(EXIT_SUCCESS);
-	if (_strncmp(args[0], "env", 3) == 0)
+	else if (pid == 0)
 	{
-		print_env();
-		return (0);
-	}
-
-	cmd = search_command(args[0]);
-	if (cmd == NULL)
-	{
-		printf("%s: command not found\n", args[0]);
-		return (-1);
-	}
-	if (fork() == 0)
-	{
-		if (execve(args[0], args, NULL) == -1)
+		/* child process */
+		if (execve(argv[0], argv, NULL) == -1)
 		{
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}
+		_exit(EXIT_SUCCESS);
 	}
 	else
-		wait(NULL);
-	return (0);
+	{
+		/* parent process */
+		do {
+			if (waitpid(pid, &status, WUNTRACED) == -1)
+			{
+				perror("waitpid");
+				exit(EXIT_FAILURE);
+			}
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
+	}
 }

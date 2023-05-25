@@ -9,20 +9,21 @@ char *search_command(char *name)
 {
 	char *path = _getenv("PATH");
 	char *dir;
-	char *cmd;
-	int len;
+	char *cmd = NULL;
+	int len = 0;
 	struct stat st;
 
 	dir = strtok(path, ":");
+	len = _strlen(dir) + _strlen(name) + 2;
+	cmd = malloc(len);
+	if (cmd == NULL)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
 	while (dir != NULL)
 	{
-		len = _strlen(dir) + _strlen(name) + 2;
-		cmd = malloc(len);
-		if (cmd == NULL)
-		{
-			perror("malloc");
-			exit(EXIT_FAILURE);
-		}
 		_strcpy(cmd, dir);
 		_strncat(cmd, "/", len - _strlen(cmd) - 1);
 		_strncat(cmd, name, len - _strlen(cmd) - 1);
@@ -34,6 +35,5 @@ char *search_command(char *name)
 		free(cmd);
 		dir = strtok(NULL, ":");
 	}
-	free(cmd);
 	return (NULL);
 }

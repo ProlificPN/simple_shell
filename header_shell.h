@@ -10,16 +10,20 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <signal.h>
+#include <fcntl.h>
 
 #define MAX_COMMAND_LENGTH 1024
 
 extern char **environ;
 
 ssize_t read_command(char **command, size_t *bufsize);
-int execute_command(char *command);
+void execute_command(char **argv);
+int parse_command(char *command, char **argv, int argc);
 void simple_shell(void);
 char *search_command(char *name);
 void print_env(void);
+void prompt(void);
 
 char *_getenv(const char *name);
 int _strlen(const char *s);
