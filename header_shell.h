@@ -28,6 +28,8 @@ void simple_shell(void);
 char *get_path(char *command);
 void print_env(void);
 void prompt(void);
+int built_in(char **argv);
+
 
 char *_getenv(const char *name);
 size_t _strlen(const char *s);
