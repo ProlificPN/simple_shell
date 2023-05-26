@@ -10,6 +10,9 @@ void execute_command(char **argv)
 	int status;
 	char *command_path = argv[0];
 
+	if (_strncmp(argv[0], "exit", 4) == 0)
+		exit(EXIT_SUCCESS);
+
 	if (command_path[0] != '/')
 	{
 		command_path = get_path(argv[0]);
