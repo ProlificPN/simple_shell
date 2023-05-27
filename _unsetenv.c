@@ -11,7 +11,7 @@ int unsetenv_builtin(char **args)
 	if (args[1] == NULL)
 	{
 		write(STDERR_FILENO, "unsetenv: no variable specified\n", 33);
-		return 1;
+		return (1);
 	}
 
 	char *name = args[1];
@@ -24,15 +24,13 @@ int unsetenv_builtin(char **args)
 	{
 		char **p = env_ptr;
 
-		do
-		{
-			*p = *(p + 1);
+		do {*p = *(p + 1);
 		} while (*++p != NULL);
-		return 1;
+		return (1);
 		}
 		env_ptr++;
 	}
 
 	write(STDERR_FILENO, "unsetenv: variable not found\n", 29);
-	return 1;
+	return (1);
 }
