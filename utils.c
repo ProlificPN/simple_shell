@@ -81,7 +81,8 @@ int _strncmp(const char *str1, const char *str2, int n)
  * @haystack: the string to search through
  * @needle: the string to search for
  *
- * Return: a pointer to the start of the matching substring, or NULL if no match is found
+ * Return: a pointer to the start of the matching substring,or NULL if no match
+ * is found
  */
 char *_strstr(const char *haystack, const char *needle)
 {
@@ -91,12 +92,12 @@ char *_strstr(const char *haystack, const char *needle)
 	{
 		if (_strncmp(haystack, needle, needle_len) == 0)
 		{
-			return (char *)haystack;
+			return ((char *)haystack);
 		}
 		haystack++;
 	}
 
-	return NULL;
+	return (NULL);
 }
 
 /**
