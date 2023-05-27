@@ -11,7 +11,6 @@ int main(void)
 	size_t command_size = 0;
 	char *args[MAX_COMMAND_LENGTH];
 	int arg_count;
-
 	/* check if running in non-interactive mode */
 	if (!isatty(STDIN_FILENO))
 	{
@@ -21,19 +20,15 @@ int main(void)
 			perror("getline");
 			return (EXIT_FAILURE);
 		}
-
 		/* parse and execute command */
 		arg_count = parse_command(command, args, MAX_COMMAND_LENGTH);
 		if (arg_count > 0)
 		{
 			execute_command(args);
 		}
-
-		/* free memory and exit */
 		free(command);
 		return (EXIT_SUCCESS);
 	}
-
 	/* interactive mode: read commands from user */
 	while (1)
 	{
@@ -50,6 +45,5 @@ int main(void)
 		free(command);
 		command = NULL;
 	}
-
 	return (EXIT_SUCCESS);
 }
