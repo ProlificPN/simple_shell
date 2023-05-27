@@ -31,7 +31,8 @@ char *get_path(char *command)
 			_strcat(pathbuf, "/");
 			_strcat(pathbuf, command);
 
-			if (stat(pathbuf, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
+			if (stat(pathbuf, &st) == 0 && S_ISREG(st.st_mode)
+					&& (st.st_mode & S_IXUSR))
 			{
 				command_path = pathbuf;
 				break;
