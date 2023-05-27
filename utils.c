@@ -75,27 +75,30 @@ int _strncmp(const char *str1, const char *str2, int n)
 	}
 	return (0);
 }
+
 /**
- * _strncat - function appends the src string to the dest string
- * @dest: first string
- * @src: second string
- * @n: number of character
- * Return: a pointer to the resulting string dest
+ * _strstr - searches for a substring within a larger string
+ * @haystack: the string to search through
+ * @needle: the string to search for
+ *
+ * Return: a pointer to the start of the matching substring, or NULL if no match is found
  */
-
-char *_strncat(char *dest, const char *src, size_t n)
+char *_strstr(const char *haystack, const char *needle)
 {
-	size_t i = 0;
-	size_t r = _strlen(dest);
+	size_t needle_len = _strlen(needle);
 
-	while (*(src + i) != '\0' && i < n)
+	while (*haystack != '\0')
 	{
-		*(dest + (r + i)) = *(src + i);
-		i++;
+		if (_strncmp(haystack, needle, needle_len) == 0)
+		{
+			return (char *)haystack;
+		}
+		haystack++;
 	}
-	*(dest + (r + i)) = '\0';
-	return (dest);
+
+	return NULL;
 }
+
 /**
  * *_strcpy -  copies the string pointed to by src including the
  * terminating null byte (\0), to the buffer pointed to by dest.

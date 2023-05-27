@@ -18,6 +18,8 @@
 
 
 #define MAX_COMMAND_LENGTH 1024
+#define BUFFER_SIZE 1024
+#define MAX_PATH_LENGTH 1024
 
 extern char **environ;
 
@@ -29,6 +31,8 @@ char *get_path(char *command);
 void print_env(void);
 void prompt(void);
 int built_in(char **argv);
+int cd_builtin(char **args);
+ssize_t read_command2(char **command, size_t *bufsize);
 
 
 char *_getenv(const char *name);
@@ -38,6 +42,8 @@ char *_strcpy(char *dest, char *src);
 char *_strdup(char *s);
 int _strncmp(const char *str1, const char *str2, int n);
 char *_strcat(char *dest, const char *src);
+char *_getline(void);
+char *_strtok(char *str, const char *delim);
 
-
+char *_strstr(const char *haystack, const char *needle);
 #endif /* HEADER_H */

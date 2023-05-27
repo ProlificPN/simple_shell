@@ -15,10 +15,8 @@ ssize_t read_command(char **command, size_t *bufsize)
 	{
 		if (errno == EOF)
 			printf("\n");
-		else
-		{
+		else	
 			perror("getline");
-		}
 	}
 	else if ((*command)[nread - 1] == '\n')
 		(*command)[nread - 1] = '\0';
