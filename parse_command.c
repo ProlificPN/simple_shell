@@ -19,6 +19,5 @@ int parse_command(char *command, char **argv, int argc)
 		token = strtok(NULL, " \t\n");
 	}
 	argv[i] = NULL;
-
 	return (i);
 }

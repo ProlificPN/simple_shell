@@ -5,7 +5,7 @@
 */
 void exit_shell(void)
 {
-	exit(EXIT_SUCCESS);
+	exit(0);
 }
 
 /**
@@ -15,6 +15,7 @@ void exit_shell(void)
 void print_environment(void)
 {
 	char **env = environ;
+
 	while (*env)
 	{
 		printf("%s\n", *env);
@@ -24,25 +25,25 @@ void print_environment(void)
 
 
 /**
-
-built_in - checks if the command is a built-in and executes it
-
-@argv: the array of arguments to execute
-
-Return: 1 if the command is a built-in, 0 otherwise
+ *built_in - checks if the command is a built-in and executes it
+ *@argv: the array of arguments to execute
+ *
+ *Return: 1 if the command is a built-in, 0 otherwise
 */
 int built_in(char **argv)
 {
-	if (strncmp(argv[0], "exit", 4) == 0)
+	if (_strncmp(argv[0], "exit", 4) == 0)
 	{
 		exit_shell();
-		return 1;
+		return (1);
 	}
-	else if (strncmp(argv[0], "env", 3) == 0)
+	else if (_strncmp(argv[0], "env", 3) == 0)
 	{
 		print_environment();
-		return 1;
+		return (1);
 	}
+	else if (_strncmp(argv[0], "cd", 2) == 0)
+		return (cd_builtin(argv));
 
-	return 0;
+	return (0);
 }

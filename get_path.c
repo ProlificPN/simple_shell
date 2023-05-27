@@ -14,7 +14,7 @@ char *get_path(char *command)
 	if (path != NULL)
 	{
 		char *path_copy = _strdup(path);
-		char *dir = strtok(path_copy, ":");
+		char *dir = _strtok(path_copy, ":");
 
 		while (dir != NULL)
 		{
@@ -38,7 +38,7 @@ char *get_path(char *command)
 			}
 
 			free(pathbuf);
-			dir = strtok(NULL, ":");
+			dir = _strtok(NULL, ":");
 		}
 
 		free(path_copy);

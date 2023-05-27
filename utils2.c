@@ -42,3 +42,44 @@ char *_strcat(char *dest, const char *src)
 
 	return dest;
 }
+
+
+/**
+ * _strtok - splits a string into tokens using a specified delimiter
+ * @str: the string to split
+ * @delim: the delimiter to use
+ *
+ * Return: a pointer to the next token, or NULL if there are no more tokens
+ */
+char *_strtok(char *str, const char *delim)
+{
+	static char *last_token = NULL;
+	char *token = NULL;
+	size_t token_len = 0;
+	size_t delim_len = _strlen(delim);
+
+	if (str != NULL)
+		last_token = str;
+	if (last_token == NULL)
+		return NULL;
+
+	token = strstr(last_token, delim);
+
+	if (token != NULL)
+	{
+		token_len = token - last_token;
+		token = last_token;
+		last_token = token + token_len + delim_len;
+		token[token_len] = '\0';
+		return token;
+	}
+
+	token = last_token;
+	last_token = NULL;
+	if (strlen(token) > 0) {
+		token_len = strlen(token);
+		token[token_len] = '\0';
+		return token;
+	}
+	return NULL;
+}
