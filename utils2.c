@@ -40,7 +40,7 @@ char *_strcat(char *dest, const char *src)
 
 	dest[dest_len + src_len] = '\0';
 
-	return dest;
+	return (dest);
 }
 
 
@@ -53,7 +53,7 @@ char *_strcat(char *dest, const char *src)
  */
 char *_strtok(char *str, const char *delim)
 {
-	static char *last_token = NULL;
+	static char *last_token;
 	char *token = NULL;
 	size_t token_len = 0;
 	size_t delim_len = _strlen(delim);
@@ -61,7 +61,7 @@ char *_strtok(char *str, const char *delim)
 	if (str != NULL)
 		last_token = str;
 	if (last_token == NULL)
-		return NULL;
+		return (NULL);
 
 	token = strstr(last_token, delim);
 
@@ -71,15 +71,16 @@ char *_strtok(char *str, const char *delim)
 		token = last_token;
 		last_token = token + token_len + delim_len;
 		token[token_len] = '\0';
-		return token;
+		return (token);
 	}
 
 	token = last_token;
 	last_token = NULL;
-	if (strlen(token) > 0) {
+	if (strlen(token) > 0)
+	{
 		token_len = strlen(token);
 		token[token_len] = '\0';
-		return token;
+		return (token);
 	}
-	return NULL;
+	return (NULL);
 }
