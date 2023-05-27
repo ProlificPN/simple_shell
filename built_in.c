@@ -1,5 +1,5 @@
 #include "header_shell.h"
-i
+
 /**
  * exit_shell - exits the shell
 */
@@ -25,21 +25,11 @@ void print_environment(void)
 }
 
 
-<<<<<<< HEAD
-/*
-
-built_in - checks if the command is a built-in and executes it
-
-@argv: the array of arguments to execute
-
-Return: 1 if the command is a built-in, 0 otherwise
-=======
 /**
  *built_in - checks if the command is a built-in and executes it
  *@argv: the array of arguments to execute
  *
  *Return: 1 if the command is a built-in, 0 otherwise
->>>>>>> eb8dc0564dba0eb7f0ae20bc7fe5955fbc720a86
 */
 int built_in(char **argv)
 {

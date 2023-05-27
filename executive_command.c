@@ -1,35 +1,6 @@
 #include "header_shell.h"
 
 /**
- * execute_command - executes a command in a child process
- * @argv: the array of arguments to execute
- */
-void execute_command(char **argv)
-{
-	if (built_in(argv))
-		return;
-
-	char *command_path = get_command_path(argv[0]);
-
-	if (command_path == NULL)
-	{
-		printf("Command not found: %s\n", argv[0]);
-		return;
-	}
-
-	int status = execute_command_path(command_path, argv);
-
-	if (command_path != argv[0])
-		free(command_path);
-
-	if (status == -1)
-	{
-		perror("execute_command_path");
-		exit(EXIT_FAILURE);
-	}
-}
-
-/**
  * get_command_path - searches for the command path
  * @command: the command to search for
  * Return: the path to the command, or NULL if not found
@@ -40,7 +11,7 @@ char *get_command_path(char *command)
 
 	if (command_path[0] != '/')
 	{
-		command_path = search_path(command_path);
+		command_path = get_path(command_path);
 
 		if (command_path == NULL)
 			return (NULL);
@@ -79,4 +50,36 @@ int execute_command_path(char *command_path, char **argv)
 	}
 
 	return (status);
+}
+
+/**
+ * execute_command - executes a command in a child process
+ * @argv: the array of arguments to execute
+ */
+void execute_command(char **argv)
+{
+	int status;
+	char *command_path = argv[0];
+
+	if (built_in(argv))
+		return;
+
+	command_path = get_command_path(argv[0]);
+
+	if (command_path == NULL)
+	{
+		printf("Command not found: %s\n", argv[0]);
+		return;
+	}
+
+	status = execute_command_path(command_path, argv);
+
+	if (command_path != argv[0])
+		free(command_path);
+
+	if (status == -1)
+	{
+		perror("execute_command_path");
+		exit(EXIT_FAILURE);
+	}
 }

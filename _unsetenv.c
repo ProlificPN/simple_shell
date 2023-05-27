@@ -8,15 +8,19 @@
  */
 int unsetenv_builtin(char **args)
 {
+	char *name;
+	int name_len;
+	char **env_ptr;
+
 	if (args[1] == NULL)
 	{
 		write(STDERR_FILENO, "unsetenv: no variable specified\n", 33);
 		return (1);
 	}
 
-	char *name = args[1];
-	int name_len = strlen(name);
-	char **env_ptr = environ;
+	name = args[1];
+	name_len = strlen(name);
+	env_ptr = environ;
 
 	while (*env_ptr != NULL)
 	{
